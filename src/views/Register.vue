@@ -9,11 +9,11 @@
                     color="grey lighten-4"
                    
                 >
-                    <h3 class="justify-center m-0" id="titleLogin">
+                    <h3 class="justify-center m-0" id="titleRegister">
                         Create An Account
                         
                     </h3>
-                    <p id="textLogin">
+                    <p id="textRegister">
                         Create an account to enjoy all the services 
                         <br>
                         without any ads for free!
@@ -21,8 +21,8 @@
                     <v-container pt-0 class="pb-16"  >
                          <form @submit.prevent="submit" >
                             <v-text-field
-                            v-model="name"
-                            label="Name"
+                            v-model="email"
+                            label="Email"
                             outlined
                             required
                             ></v-text-field>
@@ -30,6 +30,12 @@
                             <v-text-field
                             v-model="password"
                             label="Password"
+                            outlined
+                            required
+                            ></v-text-field>
+                            <v-text-field
+                            v-model="passwordRepeat"
+                            label="Repeat Password"
                             outlined
                             required
                             ></v-text-field>
@@ -52,12 +58,13 @@
 
 <script>
 export default {
-  name: 'Login',
+  name: 'Register',
   data(){
       return{
           //V-models
-          name: '',
-          password: ''
+          email: '',
+          password: '',
+          passwordRepeat: '',
       }
     
       },
@@ -85,7 +92,7 @@ export default {
     width: 100%;
     height: 100%;
 }
-#titleLogin{
+#titleRegister{
     color: #212B27;
     font-size: 36px;
     padding-top: 35px;
@@ -93,7 +100,7 @@ export default {
     font-family: "Karla-Bold";
     font-weight: bold;
 }
-#textLogin{
+#textRegister{
     font-family: "Karla-Medium";
     font-style: normal;
     font-weight: normal;
