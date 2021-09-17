@@ -19,7 +19,7 @@
                         without any ads for free!
                     </p>
                     <v-container pt-0 class="pb-16"  >
-                         <form @submit.prevent="submit" >
+                         <form @submit.prevent="login()" >
                             <v-text-field
                             v-model="email"
                             label="Email"
@@ -51,6 +51,8 @@
 </template>
 
 <script>
+import auth from '../logic/auth';
+
 export default {
   name: 'Login',
   data(){
@@ -63,8 +65,15 @@ export default {
     
       },
       methods:{
-          submitRegister(){
-
+          async login(){
+              try {
+                const response = await auth.login(this.email, this.password)
+                const user = {email: this.email, token: response.data.token}
+                 auth.setUserLogged(user)
+                  this.$router.push("/")
+              } catch (error) {
+                  console.log(error)
+              }
           }
       }
   }

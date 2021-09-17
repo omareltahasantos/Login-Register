@@ -19,22 +19,28 @@
                         without any ads for free!
                     </p>
                     <v-container pt-0 class="pb-16"  >
-                         <form @submit.prevent="submit" >
+                         <form @submit.prevent="register()" >
                             <v-text-field
+                            type="email"
                             v-model="email"
+                            placeholder="Email"
                             label="Email"
                             outlined
                             required
                             ></v-text-field>
                             
                             <v-text-field
+                            type="password"
                             v-model="password"
+                            placeholder="Password"
                             label="Password"
                             outlined
                             required
                             ></v-text-field>
                             <v-text-field
+                            type="password"
                             v-model="passwordRepeat"
+                            placeholder="Repeat Password"
                             label="Repeat Password"
                             outlined
                             required
@@ -57,6 +63,8 @@
 </template>
 
 <script>
+import auth from '../logic/auth';
+
 export default {
   name: 'Register',
   data(){
@@ -65,12 +73,22 @@ export default {
           email: '',
           password: '',
           passwordRepeat: '',
+          error:false
       }
     
       },
       methods:{
-          submitRegister(){
-
+        async register(){
+            try {
+                const response = await auth.register(this.email, this.password)
+                 const user = {email:this.email, token: response.data.token}
+                 auth.setUserLogged(user)
+                // console.log(auth.getUserL ogged() + "adadad")
+                 this.$router.push("/")
+            } catch (error) {
+                console.log(error)
+            }
+          
           }
       }
   }
